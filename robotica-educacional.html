@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robótica Educacional — Avanços e Impactos Sociais</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #1D9E75;
+    --verde-claro: #E1F5EE;
+    --verde-escuro: #085041;
+    --roxo: #534AB7;
+    --roxo-claro: #EEEDFE;
+    --amarelo: #EF9F27;
+    --amarelo-claro: #FAEEDA;
+    --coral: #D85A30;
+    --coral-claro: #FAECE7;
+    --cinza-bg: #F8F7F4;
+    --cinza-borda: #D3D1C7;
+    --texto: #2C2C2A;
+    --texto-muted: #5F5E5A;
+    --branco: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cinza-bg);
+    color: var(--texto);
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--verde-escuro);
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  nav .logo {
+    font-family: 'Space Mono', monospace;
+    color: #9FE1CB;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 0;
+  }
+  nav ul li a {
+    color: #9FE1CB;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 0 1rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    transition: background 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+  nav ul li a:hover {
+    background: rgba(255,255,255,0.07);
+    border-bottom-color: var(--amarelo);
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--verde-escuro);
+    color: white;
+    padding: 5rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    background: rgba(29,158,117,0.18);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 10%;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(239,159,39,0.12);
+  }
+  .hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(159,225,203,0.15);
+    border: 1px solid rgba(159,225,203,0.3);
+    color: #9FE1CB;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    font-family: 'Space Mono', monospace;
+  }
+  .hero h1 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 600;
+    line-height: 1.2;
+    color: white;
+    margin-bottom: 1.25rem;
+    max-width: 680px;
+  }
+  .hero h1 span { color: #5DCAA5; }
+  .hero p {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.7);
+    max-width: 560px;
+    margin-bottom: 2rem;
+  }
+  .hero-autor {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+  }
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .hero-stat .num {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.8rem;
+    color: #5DCAA5;
+    font-weight: 700;
+  }
+  .hero-stat .lab {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 2px;
+  }
+
+  /* SEÇÕES */
+  section {
+    padding: 4rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--verde);
+    margin-bottom: 0.5rem;
+  }
+  section h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--texto);
+    margin-bottom: 1.5rem;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin-top: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--cinza-borda);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .timeline-dot {
+    position: absolute;
+    left: -2rem;
+    top: 4px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--verde);
+    border: 3px solid var(--cinza-bg);
+  }
+  .timeline-ano {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--verde);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .timeline-titulo {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .timeline-desc {
+    font-size: 0.9rem;
+    color: var(--texto-muted);
+  }
+
+  /* CARDS GRID */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .card {
+    background: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 12px;
+    padding: 1.25rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+  }
+  .card-icone {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+  .card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .card p {
+    font-size: 0.875rem;
+    color: var(--texto-muted);
+  }
+
+  /* QUIZ */
+  #quiz {
+    background: var(--verde-escuro);
+    color: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    margin-top: 3rem;
+  }
+  #quiz h2 { color: white; }
+  .quiz-pergunta {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 1.5rem 0 1rem;
+    color: rgba(255,255,255,0.9);
+  }
+  .quiz-opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .quiz-btn {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.85);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .quiz-btn:hover { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.3); }
+  .quiz-btn.correta { background: rgba(29,158,117,0.35); border-color: #5DCAA5; color: white; }
+  .quiz-btn.errada { background: rgba(216,90,48,0.35); border-color: #F0997B; color: white; }
+  .quiz-btn:disabled { cursor: default; }
+  .quiz-feedback {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok { background: rgba(29,158,117,0.2); color: #9FE1CB; border: 1px solid rgba(93,202,165,0.3); }
+  .quiz-feedback.erro { background: rgba(216,90,48,0.2); color: #F0997B; border: 1px solid rgba(240,153,123,0.3); }
+  .quiz-nav {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .quiz-progresso {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+  }
+  .btn-prox {
+    background: var(--verde);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: 'DM Sans', sans-serif;
+    display: none;
+    transition: background 0.2s;
+  }
+  .btn-prox:hover { background: #0F6E56; }
+  .btn-prox.show { display: inline-block; }
+
+  /* IMPACTOS */
+  .impactos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  @media (max-width: 600px) {
+    .impactos-grid { grid-template-columns: 1fr; }
+    nav ul { display: none; }
+    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+  }
+  .impacto-card {
+    border-radius: 12px;
+    padding: 1.25rem;
+    border-left: 3px solid;
+  }
+  .impacto-card.positivo {
+    background: var(--verde-claro);
+    border-color: var(--verde);
+  }
+  .impacto-card.desafio {
+    background: var(--coral-claro);
+    border-color: var(--coral);
+  }
+  .impacto-card h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .impacto-card.positivo h4 { color: var(--verde-escuro); }
+  .impacto-card.desafio h4 { color: #712B13; }
+  .impacto-card p {
+    font-size: 0.85rem;
+  }
+  .impacto-card.positivo p { color: #0F6E56; }
+  .impacto-card.desafio p { color: #993C1D; }
+
+  /* CITAR */
+  blockquote {
+    border-left: 3px solid var(--roxo);
+    padding: 0.75rem 1.25rem;
+    background: var(--roxo-claro);
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+    color: #3C3489;
+    font-style: italic;
+  }
+  blockquote cite {
+    display: block;
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+    color: var(--roxo);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  /* STEM */
+  .stem-bar {
+    display: flex;
+    gap: 4px;
+    margin: 2rem 0 1rem;
+  }
+  .stem-letter {
+    flex: 1;
+    text-align: center;
+    padding: 1.2rem 0.5rem 1rem;
+    border-radius: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s;
+    user-select: none;
+  }
+  .stem-letter:hover { transform: translateY(-4px); }
+  .stem-letter.s { background: var(--verde-claro); color: var(--verde-escuro); }
+  .stem-letter.t { background: var(--roxo-claro); color: #26215C; }
+  .stem-letter.e { background: var(--amarelo-claro); color: #412402; }
+  .stem-letter.m { background: var(--coral-claro); color: #4A1B0C; }
+  .stem-letter small {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 400;
+    margin-top: 4px;
+  }
+  .stem-info {
+    background: var(--branco);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    font-size: 0.9rem;
+    color: var(--texto-muted);
+    min-height: 60px;
+    transition: all 0.3s;
+  }
+
+  /* DIVISOR */
+  .divisor {
+    border: none;
+    border-top: 1px solid var(--cinza-borda);
+    margin: 0 2rem;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--verde-escuro);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    font-family: 'Space Mono', monospace;
+  }
+  footer strong { color: #9FE1CB; }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="logo">⚙ Robótica Educacional</span>
+  <ul>
+    <li><a href="#historico">História</a></li>
+    <li><a href="#tecnologias">Tecnologias</a></li>
+    <li><a href="#impactos">Impactos</a></li>
+    <li><a href="#quiz">Quiz</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Trabalho de Conclusão de Curso — 2026</div>
+    <h1>Os <span>avanços da tecnologia</span> através da robótica no meio educacional</h1>
+    <p>Como a robótica está transformando as metodologias de ensino, desenvolvendo habilidades e preparando estudantes para o futuro.</p>
+    <div class="hero-autor">Carlos Eduardo dos Santos · E. E. E. M. Profª. Maria Rocha · Santa Maria, RS</div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num">1960</div>
+        <div class="lab">Origem do ensino com LOGO</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">4</div>
+        <div class="lab">Áreas do STEM integradas</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">+21</div>
+        <div class="lab">Referências bibliográficas</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRODUÇÃO -->
+<section id="intro">
+  <div class="section-label">01 — Introdução</div>
+  <h2>Por que a robótica na educação?</h2>
+  <p>A tecnologia tem se tornado cada vez mais presente no cotidiano da sociedade contemporânea, influenciando a forma como as pessoas vivem, comunicam, trabalham e aprendem. No ambiente escolar, os avanços tecnológicos promovem mudanças significativas nas metodologias de ensino, proporcionando aprendizagens mais dinâmicas e interativas.</p>
+  <blockquote>
+    "A integração das tecnologias digitais amplia diversas práticas inovadoras [...] não é algo só no uso de equipamentos, mas envolve também estratégias pedagógicas para qualificar cada vez mais o ensino."
+    <cite>— MORAN, José Manuel. A educação que desejamos. 2013.</cite>
+  </blockquote>
+  <p>A robótica educacional surge como ferramenta pedagógica capaz de integrar conhecimentos de diferentes áreas, estimulando a criatividade, o raciocínio lógico e a resolução de problemas — habilidades essenciais para o mercado de trabalho do século XXI.</p>
+</section>
+
+<hr class="divisor">
+
+<!-- HISTÓRICO -->
+<section id="historico">
+  <div class="section-label">02 — Histórico</div>
+  <h2>Da tartaruga de Papert ao Arduino</h2>
+  <p>A trajetória da robótica na educação passou por transformações marcantes ao longo de décadas, evoluindo de experimentos acadêmicos para ferramentas acessíveis em sala de aula.</p>
+
+  <div class="timeline" id="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-ano">Anos 1960–70</div>
+      <div class="timeline-titulo">Linguagem LOGO e a Tartaruga de Solo</div>
+      <div class="timeline-desc">Seymour Papert cria a linguagem LOGO no MIT. A "Tartaruga de Solo" respondia a comandos de programação, mostrando que crianças podiam aprender construindo. Base do Construcionismo.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-ano">Anos 1990–2000</div>
+      <div class="timeline-titulo">LEGO Mindstorms — robótica modular</div>
+      <div class="timeline-desc">Kits com motores, sensores e microcontroladores de fácil manipulação popularizaram a robótica nas escolas, tornando o ensino mais tangível e acessível.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-ano">Anos 2010</div>
+      <div class="timeline-titulo">Arduino e Hardware Livre</div>
+      <div class="timeline-desc">Plataformas abertas como o Arduino democratizaram o acesso ao hardware programável, permitindo que escolas públicas criassem projetos de automação com baixo custo.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-ano">Atualidade</div>
+      <div class="timeline-titulo">IA, STEM e Cultura Maker</div>
+      <div class="timeline-desc">A robótica integra inteligência artificial, pensamento computacional e a abordagem STEM. É vista como plataforma de alfabetização digital, preparando jovens para a automação global.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divisor">
+
+<!-- TECNOLOGIAS -->
+<section id="tecnologias">
+  <div class="section-label">03 — Tecnologias</div>
+  <h2>Ferramentas que transformam o ensino</h2>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icone" style="background:#E1F5EE;">🤖</div>
+      <h3>Robótica Educacional</h3>
+      <p>Área que une mecânica, eletrônica e computação para criar sistemas automatizados. Desenvolve raciocínio lógico, criatividade e trabalho em equipe.</p>
+    </div>
+    <div class="card">
+      <div class="card-icone" style="background:#EEEDFE;">🧠</div>
+      <h3>Inteligência Artificial</h3>
+      <p>Ferramentas de IA permitem personalizar o ensino, criar tutores virtuais e analisar o desempenho dos alunos em tempo real.</p>
+    </div>
+    <div class="card">
+      <div class="card-icone" style="background:#FAEEDA;">⚡</div>
+      <h3>Arduino / Hardware Livre</h3>
+      <p>Microcontroladores acessíveis que permitem criar projetos de automação, sensores e circuitos integrados nas escolas com baixo custo.</p>
+    </div>
+    <div class="card">
+      <div class="card-icone" style="background:#FAECE7;">🥽</div>
+      <h3>Realidade Aumentada</h3>
+      <p>Simuladores virtuais proporcionam experiências imersivas e realistas sem os riscos e custos dos laboratórios físicos tradicionais.</p>
+    </div>
+    <div class="card">
+      <div class="card-icone" style="background:#E1F5EE;">💻</div>
+      <h3>Programação em Blocos</h3>
+      <p>Linguagens visuais como Scratch tornam a introdução ao pensamento computacional acessível desde os primeiros anos do ensino fundamental.</p>
+    </div>
+    <div class="card">
+      <div class="card-icone" style="background:#EEEDFE;">🔧</div>
+      <h3>Cultura Maker</h3>
+      <p>Movimento que incentiva o "aprender fazendo", com espaços como FabLabs e Makerspaces integrados ao ambiente escolar.</p>
+    </div>
+  </div>
+
+  <!-- STEM INTERATIVO -->
+  <div style="margin-top: 3rem;">
+    <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">A abordagem STEM na robótica</h3>
+    <p style="font-size: 0.9rem; color: var(--texto-muted); margin-bottom: 1rem;">Clique em cada letra para entender como a robótica integra cada área do conhecimento.</p>
+    <div class="stem-bar">
+      <div class="stem-letter s" onclick="showStem('s')">S<small>Science</small></div>
+      <div class="stem-letter t" onclick="showStem('t')">T<small>Technology</small></div>
+      <div class="stem-letter e" onclick="showStem('e')">E<small>Engineering</small></div>
+      <div class="stem-letter m" onclick="showStem('m')">M<small>Mathematics</small></div>
+    </div>
+    <div class="stem-info" id="stemInfo">Clique em uma das letras acima para saber mais sobre cada área do STEM.</div>
+  </div>
+</section>
+
+<hr class="divisor">
+
+<!-- IMPACTOS -->
+<section id="impactos">
+  <div class="section-label">04 — Impactos Sociais</div>
+  <h2>Benefícios e desafios da robotica educacional</h2>
+  <p>A inserção da robótica nas escolas gera impactos tanto positivos quanto desafios que precisam ser superados, especialmente na rede pública brasileira.</p>
+
+  <div class="impactos-grid">
+    <div class="impacto-card positivo">
+      <h4>✓ Engajamento e motivação</h4>
+      <p>A robótica desperta a curiosidade dos alunos, aumentando gradualmente a participação ativa nas atividades escolares.</p>
+    </div>
+    <div class="impacto-card desafio">
+      <h4>✗ Infraestrutura precária</h4>
+      <p>Muitas escolas públicas não possuem equipamentos de qualidade ou conectividade suficiente para implementar a robótica.</p>
+    </div>
+    <div class="impacto-card positivo">
+      <h4>✓ Desenvolvimento de Soft Skills</h4>
+      <p>Trabalho em equipe, colaboração, pensamento crítico e resolução de problemas são habilidades desenvolvidas naturalmente.</p>
+    </div>
+    <div class="impacto-card desafio">
+      <h4>✗ Formação docente</h4>
+      <p>Falta de professores qualificados para mediar a tecnologia é um dos principais obstáculos nas escolas públicas e privadas.</p>
+    </div>
+    <div class="impacto-card positivo">
+      <h4>✓ Preparação para o mercado</h4>
+      <p>Projetos de robótica preparam os jovens para as profissões do futuro, especialmente na área de automação e tecnologia.</p>
+    </div>
+    <div class="impacto-card desafio">
+      <h4>✗ Custo dos kits robóticos</h4>
+      <p>O alto custo dos equipamentos dificulta a democratização da robótica, aumentando a desigualdade digital entre escolas.</p>
+    </div>
+    <div class="impacto-card positivo">
+      <h4>✓ Inclusão digital</h4>
+      <p>Programas como ProInfo e projetos sociais levam a robótica a comunidades vulneráveis, reduzindo a exclusão tecnológica.</p>
+    </div>
+    <div class="impacto-card desafio">
+      <h4>✗ Exclusão social digital</h4>
+      <p>A desigualdade no acesso às tecnologias pode aprofundar disparidades sociais, conforme aponta Silveira (2023).</p>
+    </div>
+  </div>
+
+  <blockquote style="margin-top: 2rem;">
+    "Os projetos de robótica desenvolvem o pensamento crítico e a colaboração e elaboram melhor os alunos para os desafios do mercado de trabalho da atualidade."
+    <cite>— FILATRO, 2018, apud JÚNIOR et al., 2025.</cite>
+  </blockquote>
+</section>
+
+<hr class="divisor">
+
+<!-- QUIZ -->
+<section style="padding-top: 3rem; max-width: 900px; margin: 0 auto; padding-left: 2rem; padding-right: 2rem;">
+  <div id="quiz">
+    <div class="section-label" style="color: #9FE1CB;">05 — Quiz</div>
+    <h2>Teste seus conhecimentos</h2>
+    <div id="quizConteudo">
+      <div class="quiz-pergunta" id="perguntaTexto"></div>
+      <div class="quiz-opcoes" id="opcoes"></div>
+      <div class="quiz-feedback" id="feedback"></div>
+      <div class="quiz-nav">
+        <span class="quiz-progresso" id="progresso"></span>
+        <button class="btn-prox" id="btnProx" onclick="proximaPergunta()">Próxima →</button>
+      </div>
+    </div>
+    <div id="quizFinal" style="display:none; text-align:center; padding: 1rem 0;">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">🎓</div>
+      <h3 style="color: white; font-size: 1.3rem; margin-bottom: 0.5rem;" id="finalMsg"></h3>
+      <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;" id="finalSub"></p>
+      <button onclick="reiniciarQuiz()" style="margin-top:1.5rem; background:var(--verde); color:white; border:none; padding:0.7rem 1.6rem; border-radius:8px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.9rem;">Tentar novamente</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>Robótica Educacional — Avanços e Impactos Sociais</strong><br>
+  Carlos Eduardo dos Santos · E. E. E. M. Profª. Maria Rocha · Santa Maria, RS · 2026
+</footer>
+
+<script>
+// STEM
+const stemData = {
+  s: { titulo: 'Science (Ciências)', texto: 'A robótica estimula a investigação científica ao permitir que alunos testem hipóteses construindo e programando robôs. Conceitos de física, química e biologia ganham vida de forma prática e experimental.' },
+  t: { titulo: 'Technology (Tecnologia)', texto: 'Envolve programação, uso de microcontroladores como Arduino, sensores e atuadores. Os alunos aprendem a usar ferramentas tecnológicas para criar soluções reais.' },
+  e: { titulo: 'Engineering (Engenharia)', texto: 'O processo de construir um robô aplica princípios de engenharia: projeto, prototipagem, teste e iteração. Desenvolve o pensamento sistêmico e a resolução criativa de problemas.' },
+  m: { titulo: 'Mathematics (Matemática)', texto: 'Programar trajetórias, calcular ângulos de movimentação e trabalhar com lógica booleana aplica matemática de forma contextualizada e significativa.' }
+};
+
+function showStem(key) {
+  const info = stemData[key];
+  const el = document.getElementById('stemInfo');
+  el.innerHTML = '<strong>' + info.titulo + '</strong><br>' + info.texto;
+}
+
+// TIMELINE SCROLL
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.2 });
+document.querySelectorAll('.timeline-item').forEach(i => observer.observe(i));
+
+// QUIZ
+const perguntas = [
+  {
+    pergunta: 'Quem criou a linguagem LOGO, base da robótica educacional?',
+    opcoes: ['George Devol', 'Seymour Papert', 'Mitchel Resnick', 'José Moran'],
+    correta: 1,
+    explicacao: 'Seymour Papert criou a linguagem LOGO nas décadas de 1960–70 no MIT. Sua "Tartaruga de Solo" é a base do Construcionismo na educação.'
+  },
+  {
+    pergunta: 'O que significa a sigla STEM no contexto educacional?',
+    opcoes: ['Sistema Técnico de Ensino Multidisciplinar', 'Science, Technology, Engineering and Mathematics', 'Software, Tecnologia, Eletrônica e Mecânica', 'Sistema de Tecnologia Educacional Modular'],
+    correta: 1,
+    explicacao: 'STEM é a sigla para Science (Ciências), Technology (Tecnologia), Engineering (Engenharia) e Mathematics (Matemática) — abordagem integrada de ensino.'
+  },
+  {
+    pergunta: 'Qual plataforma é conhecida como "hardware livre" e é usada em projetos de robótica escolar?',
+    opcoes: ['LEGO Mindstorms', 'Raspberry Pi', 'Arduino', 'Java SDK'],
+    correta: 2,
+    explicacao: 'O Arduino é um microcontrolador de código aberto (hardware livre) amplamente usado em escolas por seu baixo custo e facilidade de programação.'
+  },
+  {
+    pergunta: 'Segundo o TCC, qual é um dos principais desafios para implementar a robótica nas escolas públicas brasileiras?',
+    opcoes: ['Falta de interesse dos alunos', 'Formação insuficiente de professores', 'Excesso de kits robóticos', 'Proibição governamental'],
+    correta: 1,
+    explicacao: 'A falta de professores qualificados para mediar a tecnologia é um dos principais obstáculos, pois a área exige muita qualificação específica. (DE FREITAS NETO, 2021)'
+  },
+  {
+    pergunta: 'O que é Construcionismo, conceito de Seymour Papert?',
+    opcoes: ['Ensino tradicional baseado em memorização', 'Aprendizagem por meio da construção de artefatos concretos', 'Método de avaliação por projetos', 'Uso exclusivo de computadores no ensino'],
+    correta: 1,
+    explicacao: 'O Construcionismo defende que o aprendizado acontece de forma mais significativa quando o aluno constrói algo concreto — seja um robô, um programa ou um projeto.'
+  }
+];
+
+let atual = 0;
+let pontos = 0;
+let respondeu = false;
+
+function carregarPergunta() {
+  respondeu = false;
+  const q = perguntas[atual];
+  document.getElementById('perguntaTexto').textContent = (atual + 1) + '. ' + q.pergunta;
+  document.getElementById('progresso').textContent = (atual + 1) + ' / ' + perguntas.length;
+  const fb = document.getElementById('feedback');
+  fb.className = 'quiz-feedback';
+  fb.textContent = '';
+  document.getElementById('btnProx').classList.remove('show');
+
+  const container = document.getElementById('opcoes');
+  container.innerHTML = '';
+  q.opcoes.forEach((op, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-btn';
+    btn.textContent = op;
+    btn.onclick = () => responder(i, btn);
+    container.appendChild(btn);
+  });
+}
+
+function responder(idx, btn) {
+  if (respondeu) return;
+  respondeu = true;
+  const q = perguntas[atual];
+  const btns = document.querySelectorAll('.quiz-btn');
+  btns.forEach(b => b.disabled = true);
+
+  const fb = document.getElementById('feedback');
+  if (idx === q.correta) {
+    btn.classList.add('correta');
+    fb.className = 'quiz-feedback show ok';
+    fb.textContent = '✓ Correto! ' + q.explicacao;
+    pontos++;
+  } else {
+    btn.classList.add('errada');
+    btns[q.correta].classList.add('correta');
+    fb.className = 'quiz-feedback show erro';
+    fb.textContent = '✗ Incorreto. ' + q.explicacao;
+  }
+  document.getElementById('btnProx').classList.add('show');
+}
+
+function proximaPergunta() {
+  atual++;
+  if (atual >= perguntas.length) {
+    document.getElementById('quizConteudo').style.display = 'none';
+    document.getElementById('quizFinal').style.display = 'block';
+    const pct = Math.round((pontos / perguntas.length) * 100);
+    let msg, sub;
+    if (pct === 100) { msg = 'Excelente! Nota máxima! 🏆'; sub = 'Você acertou todas as ' + perguntas.length + ' questões. Domínio completo do tema!'; }
+    else if (pct >= 60) { msg = 'Muito bem! ' + pontos + ' de ' + perguntas.length + ' corretas'; sub = 'Você tem um bom conhecimento sobre robótica educacional!'; }
+    else { msg = pontos + ' de ' + perguntas.length + ' corretas — tente novamente!'; sub = 'Releia o conteúdo e tente superar sua pontuação.'; }
+    document.getElementById('finalMsg').textContent = msg;
+    document.getElementById('finalSub').textContent = sub;
+  } else {
+    carregarPergunta();
+  }
+}
+
+function reiniciarQuiz() {
+  atual = 0; pontos = 0;
+  document.getElementById('quizFinal').style.display = 'none';
+  document.getElementById('quizConteudo').style.display = 'block';
+  carregarPergunta();
+}
+
+carregarPergunta();
+</script>
+</body>
+</html>
