@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robótica Educacional — Avanços e Impactos</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --verde: #1D9E75;
+  --verde-claro: #E1F5EE;
+  --verde-escuro: #063E34;
+  --coral: #D85A30;
+  --coral-claro: #FAECE7;
+  --cinza-bg: #F6F8F7;
+  --cinza-borda: #E2E6E4;
+  --texto: #1F2A28;
+  --texto-muted: #5F6B68;
+  --branco: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: linear-gradient(180deg, #f6f8f7, #ffffff);
+  color: var(--texto);
+  line-height: 1.7;
+}
+
+/* NAV */
+nav {
+  background: rgba(6, 62, 52, 0.9);
+  backdrop-filter: blur(10px);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+}
+
+nav .logo {
+  color: #9FE1CB;
+  font-weight: 600;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+}
+
+nav ul li a {
+  color: #9FE1CB;
+  text-decoration: none;
+  padding: 0 1rem;
+  position: relative;
+}
+
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--verde);
+  transition: 0.3s;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #063E34, #085041);
+  color: white;
+  padding: 5rem 2rem;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 1rem;
+}
+
+.hero h1 span {
+  color: #5DCAA5;
+}
+
+/* SEÇÕES */
+section {
+  padding: 4rem 2rem;
+  max-width: 900px;
+  margin: auto;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+h2::after {
+  content: '';
+  width: 40px;
+  height: 3px;
+  background: var(--verde);
+  display: block;
+  margin-top: 6px;
+}
+
+/* BLOCKQUOTE */
+blockquote {
+  border-left: 4px solid var(--verde);
+  padding: 1rem;
+  background: var(--verde-claro);
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+/* TIMELINE */
+.timeline-item {
+  margin-bottom: 1.8rem;
+  padding-left: 1rem;
+  border-left: 3px solid var(--cinza-borda);
+  position: relative;
+}
+
+.timeline-item::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: var(--verde);
+  border-radius: 50%;
+  position: absolute;
+  left: -6px;
+  top: 5px;
+}
+
+.timeline-ano {
+  font-weight: bold;
+  color: var(--verde);
+}
+
+/* CARDS */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 1.2rem;
+}
+
+.card {
+  background: var(--branco);
+  padding: 1.2rem;
+  border-radius: 12px;
+  border: 1px solid var(--cinza-borda);
+  transition: 0.25s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* IMPACTOS */
+.impactos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.impacto-card {
+  padding: 1.2rem;
+  border-radius: 10px;
+}
+
+.positivo {
+  background: var(--verde-claro);
+  border-left: 4px solid var(--verde);
+}
+
+.desafio {
+  background: var(--coral-claro);
+  border-left: 4px solid var(--coral);
+}
+
+/* FOOTER */
+footer {
+  background: #063E34;
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  padding: 2rem;
+}
+
+/* RESPONSIVO */
+@media (max-width: 600px) {
+  nav ul {
+    display: none;
+  }
+
+  .impactos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+</head>
+<body>
+
+<nav>
+  <span class="logo">⚙ Robótica Educacional</span>
+  <ul>
+    <li><a href="#historico">História</a></li>
+    <li><a href="#tecnologias">Tecnologias</a></li>
+    <li><a href="#impactos">Impactos</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <h1>Os <span>avanços da tecnologia</span> através da robótica no meio educacional</h1>
+  <p>Como a robótica transforma o ensino e prepara estudantes para o futuro.</p>
+</div>
+
+<section>
+  <h2>Por que a robótica na educação?</h2>
+  <p>A tecnologia está cada vez mais presente no cotidiano, influenciando o ensino e a aprendizagem.</p>
+
+  <blockquote>
+    "A integração das tecnologias digitais amplia práticas inovadoras no ensino."
+  </blockquote>
+
+  <p>A robótica educacional estimula criatividade, raciocínio lógico e resolução de problemas.</p>
+</section>
+
+<section id="historico">
+  <h2>Histórico</h2>
+
+  <div class="timeline-item">
+    <div class="timeline-ano">1960–70</div>
+    <p>Linguagem LOGO criada por Seymour Papert.</p>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-ano">1990–2000</div>
+    <p>LEGO Mindstorms populariza a robótica.</p>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-ano">2010</div>
+    <p>Arduino democratiza o acesso.</p>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-ano">Atualidade</div>
+    <p>Integração com IA e STEM.</p>
+  </div>
+</section>
+
+<section id="tecnologias">
+  <h2>Tecnologias</h2>
+
+  <div class="cards-grid">
+    <div class="card">
+      <h3>Robótica Educacional</h3>
+      <p>Desenvolve lógica e criatividade.</p>
+    </div>
+
+    <div class="card">
+      <h3>Inteligência Artificial</h3>
+      <p>Personaliza o ensino.</p>
+    </div>
+
+    <div class="card">
+      <h3>Arduino</h3>
+      <p>Hardware acessível para projetos.</p>
+    </div>
+
+    <div class="card">
+      <h3>Cultura Maker</h3>
+      <p>Aprender fazendo.</p>
+    </div>
+  </div>
+</section>
+
+<section id="impactos">
+  <h2>Impactos</h2>
+
+  <div class="impactos-grid">
+    <div class="impacto-card positivo">
+      Engajamento e motivação dos alunos
+    </div>
+
+    <div class="impacto-card desafio">
+      Falta de infraestrutura nas escolas
+    </div>
+
+    <div class="impacto-card positivo">
+      Desenvolvimento de habilidades
+    </div>
+
+    <div class="impacto-card desafio">
+      Falta de formação docente
+    </div>
+  </div>
+</section>
+
+<footer>
+  Robótica Educacional — Carlos Eduardo dos Santos — 2026
+</footer>
+
+</body>
+</html>
